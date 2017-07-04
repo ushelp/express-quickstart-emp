@@ -1,0 +1,3 @@
+# Store Upload directory.
+
+Don't delete notice.txt, because git can not commit empty directory.
