@@ -131,7 +131,7 @@ app.use(methodOverride(function (req, res) {
 
 
 // 自定义用户过滤中间件
-var userFilter=require('./middle/user-filter');
+var userFilter=require('./filter/user-filter');
 app.use(/\/emps.*/, userFilter);
 app.use(/\/depts.*/, userFilter);
 app.use(/\/admin.*/, userFilter);

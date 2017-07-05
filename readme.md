@@ -68,7 +68,7 @@ Express-quieckstart is a fast development skeleton based on Node.js [Express](ht
 │   ├── Dept.js
 │   ├── Emp.js
 │   └── User.js
-├── middle
+├── filter
 │   └── user-filter.js
 ├── public
 │   ├── img
@@ -96,9 +96,6 @@ Express-quieckstart is a fast development skeleton based on Node.js [Express](ht
 	│   └── list.etj
     ├── error.etj
     └── index.etj
-    
-
-7 directories, 10 files
 ```
 
   
