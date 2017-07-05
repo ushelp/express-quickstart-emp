@@ -1,6 +1,6 @@
 {
   "name": "express-quickstart-emp",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "description": "Node.js Express application skeleton use EasyTemplateJS engine. Others include CORS, Cookie, Session(cookie/redis), Logging(morgan&winston), Body-parse, Multer, Method-override, Serve-favicon, Compression, Exception Handler...",
   "main": "app.js",
   "scripts": {
