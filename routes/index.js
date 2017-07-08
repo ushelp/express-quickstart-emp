@@ -19,4 +19,5 @@ router.get('/admin', function(req, res, next) {
 	res.render('admin/admin',{user: req.session.USER})
 });
 
+
 module.exports = router;

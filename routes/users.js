@@ -3,12 +3,15 @@ var usersService = require('../service/users-service.js');
 var router = express.Router();
 
 router.post('/login', (req,res)=>{
+	// Dependency Injection
+	new usersService();
 	
 	var username=req.body.username;
 	var userpwd=req.body.userpwd;
 	
 	usersService.login(username, userpwd).then((user)=>{
 		req.session.USER=user;
+		//console.info(user);
 		if(user){
 			res.redirect('/admin');
 		}else{

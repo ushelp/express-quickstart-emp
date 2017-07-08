@@ -16,7 +16,6 @@ const path = require('path')
 const favicon = require('serve-favicon')
 const compression = require('compression')
 
-
 /* Session & Cookies */
 const cookieParser = require('cookie-parser')
 const session = require('express-session');
@@ -28,7 +27,7 @@ var methodOverride = require('method-override')
 const app = express()
 
 // Console
-var colors = require('colors');  
+var colors = require('colors');
 
 /**
  * Template Engine (EasyTemplatJS)
@@ -39,7 +38,7 @@ Et.enableScript = true; // enable <etj-script>
 Et.enableStyle = true; // enable <etj-style>
 //var cache = true;  // Use Cache?
 var cache = process.env.NODE_ENV == 'production'; // Use Cache?
-var cacheTpl = {}; 
+var cacheTpl = {};
 app.engine('etj', function(filePath, data, callback) {
 	fs.readFile(filePath, function(err, content) {
 		if(err) return callback(err)
@@ -56,9 +55,8 @@ app.engine('etj', function(filePath, data, callback) {
 		return callback(null, rendered)
 	})
 })
-app.set('views', './views') 
-app.set('view engine', 'etj') 
-
+app.set('views', './views')
+app.set('view engine', 'etj')
 
 // Logging
 winston.level = 'debug'; // Winston logging level: error, warn, info, verbose, debug
@@ -68,8 +66,7 @@ app.use(compression()) // Compress
 app.use(cors()) // CORS
 app.use(favicon(path.join(__dirname, 'public', 'favicon.ico'))) // favicon
 app.use(cookieParser()) // Cookies
-app.use('/static',express.static('public')) // static
-
+app.use('/static', express.static('public')) // static
 
 // Memory Session temporary
 /*
@@ -79,17 +76,17 @@ memory, and will not scale past a single process.
 !!!Please use Redis Session presists!!!
 */
 app.use(session({
-	secret: 'se3r4t', 
-	name: 'nsessionId', 
-	resave: true, 
-	rolling: true, 
-	saveUninitialized: true, 
+	secret: 'se3r4t',
+	name: 'nsessionId',
+	resave: true,
+	rolling: true,
+	saveUninitialized: true,
 	cookie: {
 		httpOnly: true,
-		maxAge: 1000*60*30 
+		maxAge: 1000 * 60 * 30
 	}
 }));
- 
+
 // Redis Session presists
 /*
 const RedisStore = require('connect-redis')(session);
@@ -110,28 +107,34 @@ app.use(session({
 }));
 */
 
-
 /* Body Parser */
-app.use(bodyParser.json({type: 'application/*+json'}))
-app.use(bodyParser.raw({type: 'application/vnd.custom-type'}))
-app.use(bodyParser.text({type: 'text/html'}))
-app.use(bodyParser.urlencoded({ extended: false }));  // create application/x-www-form-urlencoded parser  
-app.use(bodyParser.json());  // create application/json parser 
+app.use(bodyParser.json({
+	type: 'application/*+json'
+}))
+app.use(bodyParser.raw({
+	type: 'application/vnd.custom-type'
+}))
+app.use(bodyParser.text({
+	type: 'text/html'
+}))
+app.use(bodyParser.urlencoded({
+	extended: false
+})); // create application/x-www-form-urlencoded parser  
+app.use(bodyParser.json()); // create application/json parser 
 
 /* Override HTTP verbs. */
 // Support HTTP verbs request in form POST parmas `_method`
-app.use(methodOverride(function (req, res) {
-  if (req.body && typeof req.body === 'object' && '_method' in req.body) {
-    // look in urlencoded POST bodies and delete it
-    var method = req.body._method
-    delete req.body._method
-    return method
-  }
+app.use(methodOverride(function(req, res) {
+	if(req.body && typeof req.body === 'object' && '_method' in req.body) {
+		// look in urlencoded POST bodies and delete it
+		var method = req.body._method
+		delete req.body._method
+		return method
+	}
 }))
 
-
 // 自定义用户过滤中间件
-var userFilter=require('./filter/user-filter');
+var userFilter = require('./filter/user-filter');
 app.use(/\/emps.*/, userFilter);
 app.use(/\/depts.*/, userFilter);
 app.use(/\/admin.*/, userFilter);
@@ -170,26 +173,29 @@ app.use(function(err, req, res, next) {
 	res.render('error');
 });
 
-
 /**
  * Start Server
  */
-const PORT=3000;
+const PORT = 3000;
 app.listen(PORT, function() {
 	console.log('')
 	console.log(`=================================================`.yellow)
-	console.log(`Express quickstart app listening on port `+`${PORT}`.bgGreen+'!')
+	console.log(`Express quickstart app listening on port ` + `${PORT}`.bgGreen + '!')
 	console.log('')
-	console.log(`process.env.NODE_ENV: `.cyan+(process.env.NODE_ENV||"").bold.bgGreen);
-	console.log(`EasyTemplate Engine cache: `.cyan+(cache?'enabled':'disabled').bold.bgGreen);
+	console.log(`process.env.NODE_ENV: `.cyan + (process.env.NODE_ENV || "").bold.bgGreen);
+	console.log(`EasyTemplate Engine cache: `.cyan + (cache ? 'enabled' : 'disabled').bold.bgGreen);
 	console.log('')
 	console.log(`http://127.0.0.1:3000`.green)
 	console.log(`=================================================`.yellow)
 	console.log('')
 })
 
-
 // If you don't use a process manager(like 'PM2''), this can prevent server crashes
 //process.on('uncaughtException', function (err) {
 //  console.log('Caught exception: ', err);
 //});
+
+// Promise unhandled exception
+process.on('unhandledRejection', (reason, p) => {
+    console.log("Unhandled Rejection at: Promise ", p, " reason: ", reason);
+});

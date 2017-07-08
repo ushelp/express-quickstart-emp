@@ -5,9 +5,9 @@
 		<title>Request Error</title>
 	</head>
 	<body>
-		<h1 style="color:#ff0000">{msg}</h1>
-		<h2>{err.status}</h2>
-		<pre>{err.stack}</pre>
+		<h1 style="color:#ff0000">{=msg}</h1>
+		<h2>{=err.status}</h2>
+		<pre>{=err.stack}</pre>
 	</body>
 </html>
   

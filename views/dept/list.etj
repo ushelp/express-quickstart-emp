@@ -10,7 +10,7 @@
 
 		<div class="container">
 			<div class="page-header">
-				<h1>Employee Management System <small>welcome [{user.username}] &nbsp;&nbsp;&nbsp;&nbsp; [<a href="/users/logout">logout</a>]</small></h1>
+				<h1>Employee Management System <small>welcome [{=user.username}] &nbsp;&nbsp;&nbsp;&nbsp; [<a href="/users/logout">logout</a>]</small></h1>
 			</div>
 
 			<div class="row">
@@ -38,9 +38,9 @@
 						}%
 							
 							<tr>
-								<td>{dept.deptno}</td>
-								<td>{dept.dname}</td>
-								<td>{dept.dloc}</td>
+								<td>{=dept.deptno}</td>
+								<td>{=dept.dname}</td>
+								<td>{=dept.dloc}</td>
 							</tr>
 						%{		
 							}

@@ -1,13 +1,13 @@
 /**
  * User Class
- * @param {Object} deptno
- * @param {Object} dname
- * @param {Object} dloc
+ * @param {Object} id
+ * @param {Object} username
+ * @param {Object} password
  */
-function User(id, username, userpwd){
+function User(id, username, password){
 	this.id=id;
 	this.username=username;
-	this.userpwd=userpwd;
+	this.password=password;
 }
 
 module.exports=User;
